@@ -92,7 +92,7 @@
                 </ul>
                 <div class="layui-form layui-tab-content" id="LAY_ucm" style="padding: 20px 0;">
                     <div class="layui-tab-item layui-show">
-                        <form action="" method="post">
+                        <form action="${pageContext.servletContext.contextPath}/article/add" method="post">
                             <div class="layui-row layui-col-space15 layui-form-item">
                                 <div class="layui-col-md3">
                                     <label class="layui-form-label">所在专栏</label>
@@ -162,17 +162,18 @@
                                     <div class="layui-form-mid layui-word-aux">发表后无法更改飞吻${publishfail}</div>
                                 </div>
                             </div>
-                            <div class="layui-form-item">
-                                <label for="L_vercode" class="layui-form-label">人类验证</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" id="L_vercode" name="vercode" required lay-verify="required" placeholder="请回答后面的问题" autocomplete="off" class="layui-input">
-                                </div>
-                                <div class="layui-form-mid">
-                                    <span style="color: #c00;">1+1=?</span>
-                                </div>
-                            </div>
+<%--                            <div class="layui-form-item">--%>
+<%--                                <label for="L_vercode" class="layui-form-label">人类验证</label>--%>
+<%--                                <div class="layui-input-inline">--%>
+<%--                                    <input type="text" id="L_vercode" name="vercode" required lay-verify="required" placeholder="请回答后面的问题" autocomplete="off" class="layui-input">--%>
+<%--                                </div>--%>
+<%--                                <div class="layui-form-mid">--%>
+<%--                                    <span style="color: #c00;">1+1=?</span>--%>
+<%--                                </div>--%>
+<%--                            </div>--%>
                             <div class="layui-form-item">
                                 <button class="layui-btn" >立即发布</button>
+                                ${publishfail}
                             </div>
                         </form>
                     </div>

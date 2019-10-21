@@ -122,22 +122,22 @@
                         <c:forEach items="${indexInfo.topArticleList}" var="top">
                     <li>
                         <a href="user/home.html" class="fly-avatar">
-                            <img src="${pageContext.servletContext.contextPath}/WEB-INF/res/images/avatar/${top.avatar}" alt="贤心">
+                            <img src="${pageContext.servletContext.contextPath}/WEB-INF/res/images/avatar/${top.user.avatar}" alt="贤心">
                         </a>
                         <h2>
-                            <a class="layui-badge">${top.catnameZh}</a>
+                            <a class="layui-badge">${top.catenameZh}</a>
                             <a href="jie/detail.html">基于 layui 的极简社区页面模版</a>
                         </h2>
                         <div class="fly-list-info">
                             <a href="user/home.html" link>
-                                <cite>${top.nickname}</cite>
+                                <cite>${top.user.nickname}</cite>
                                 <i class="iconfont icon-renzheng" title="认证信息：XXX"></i>
                                 <i class="layui-badge fly-badge-vip">VIP3</i>
                             </a>
-                            <span>${top.catnameZh}</span>
+                            <span>${top.catenameZh}</span>
 
-                            <span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻"><i class="iconfont icon-kiss"></i> ${top.paykiss}</span>
-                            <span class="layui-badge fly-badge-accept layui-hide-xs">${top.End}</span>
+                            <span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻"><i class="iconfont icon-kiss"></i> ${top.payKiss}</span>
+                            <span class="layui-badge fly-badge-accept layui-hide-xs">${top.end}</span>
                             <span class="fly-list-nums"> 
                 <i class="iconfont icon-pinglun1" title="回答"></i> 66
               </span>

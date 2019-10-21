@@ -79,7 +79,7 @@ public class ArticleDaoImpl implements ArticleDao {
         List<Article> list=new ArrayList<>();
         try {
             conn = DBUtils.getInstance().getConnection();
-            String sql = "select a.id,title,catnameZh,nickname,DATE_FORMAT(publishtime,'%Y-%m-%d'),paykiss,isend,avatar,replynum\n" +
+            String sql = "select a.id,title,catnameZh,nickname,DATE_FORMAT(publishtime,'%Y-%m-%d') publishtime,paykiss,isend,avatar,replynum\n" +
                     "FROM article a\n" +
                     "join category c\n" +
                     "on a.cid = c.id\n" +
@@ -100,7 +100,7 @@ public class ArticleDaoImpl implements ArticleDao {
                 article.setPublishTime(rs.getString("publishtime"));
                 article.setPayKiss(rs.getInt("paykiss"));
                 article.setEnd(rs.getBoolean("isend"));
-                article.setReplyNum(rs.getInt("repltnum"));
+                article.setReplyNum(rs.getInt("replynum"));
                 article.setUser(user);
                 list.add(article);
 
@@ -138,7 +138,7 @@ public class ArticleDaoImpl implements ArticleDao {
             else if(tid==2){
                 sql=sql+"and iscream = 1";
             }
-                sql=sql+"ORDER BY DATE_FORMAT(publishtime,'%Y-%m-%d %H:%i:%s') DESC limit 0,10";
+                sql=sql+" ORDER BY DATE_FORMAT(publishtime,'%Y-%m-%d %H:%i:%s') DESC limit 0,10";
 
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -153,7 +153,7 @@ public class ArticleDaoImpl implements ArticleDao {
                 article.setPublishTime(rs.getString("publishtime"));
                 article.setPayKiss(rs.getInt("paykiss"));
                 article.setEnd(rs.getBoolean("isend"));
-                article.setReplyNum(rs.getInt("repltnum"));
+                article.setReplyNum(rs.getInt("replynum"));
                 article.setUser(user);
                 list.add(article);
 

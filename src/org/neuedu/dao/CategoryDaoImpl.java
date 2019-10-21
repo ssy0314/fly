@@ -25,8 +25,8 @@ public class CategoryDaoImpl implements CategoryDao {
             while(rs.next()){
                 Category category = new Category();
                 category.setId(rs.getInt("id"));
-                category.setCateName(rs.getString("catename"));
-                category.setCateNameZh(rs.getString("catenameZh"));
+                category.setCateName(rs.getString("catname"));
+                category.setCateNameZh(rs.getString("catnameZh"));
                 cateList.add(category);
             }
         }catch (Exception e){
@@ -53,8 +53,8 @@ public class CategoryDaoImpl implements CategoryDao {
             while(rs.next()){
                 Category category = new Category();
                 category.setId(rs.getInt("id"));
-                category.setCateName(rs.getString("catename"));
-                category.setCateNameZh(rs.getString("catenameZh"));
+                category.setCateName(rs.getString("catname"));
+                category.setCateNameZh(rs.getString("catnameZh"));
                 cateList.add(category);
             }
         }catch (Exception e){
