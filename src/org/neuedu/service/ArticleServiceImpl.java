@@ -39,4 +39,12 @@ public class ArticleServiceImpl implements ArticleService {
        indexloader.setTopArticleList(topArticleList);
         return indexloader;
     }
+
+    @Override
+    public Article loadArticle(Integer id) {
+        Article article = articleDao.serchArticleById(id);
+
+        return article;
+    }
+
 }

@@ -8,4 +8,5 @@ public interface ArticleService {
 
     //加载首页信息
     Indexloader loaderIndexInfo(Integer tid);
+    Article loadArticle(Integer id);
 }
