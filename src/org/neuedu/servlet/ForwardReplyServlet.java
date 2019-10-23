@@ -22,7 +22,8 @@ public class ForwardReplyServlet extends HttpServlet {
         String id = request.getParameter("id");
         ArticleService service = new ArticleServiceImpl();
         Article article = service.loadArticle(Integer.valueOf(id));
-        User user = (User)request.getSession().getAttribute("user");
+        request.setAttribute("article",article);
+        request.getSession().getAttribute("user");
 
 
         request.getRequestDispatcher("/WEB-INF/html/jie/detail.jsp").forward(request,response);

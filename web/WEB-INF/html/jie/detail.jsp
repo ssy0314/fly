@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <meta charset="utf-8">
@@ -38,40 +39,43 @@
         <ul class="layui-nav fly-nav-user">
 
             <!-- 未登入的状态 -->
-            <!--
-            <li class="layui-nav-item">
-              <a class="iconfont icon-touxiang layui-hide-xs" href="user/login.html"></a>
-            </li>
-            <li class="layui-nav-item">
-              <a href="user/login.html">登入</a>
-            </li>
-            <li class="layui-nav-item">
-              <a href="user/reg.html">注册</a>
-            </li>
-            <li class="layui-nav-item layui-hide-xs">
-              <a href="/app/qq/" onclick="layer.msg('正在通过QQ登入', {icon:16, shade: 0.1, time:0})" title="QQ登入" class="iconfont icon-qq"></a>
-            </li>
-            <li class="layui-nav-item layui-hide-xs">
-              <a href="/app/weibo/" onclick="layer.msg('正在通过微博登入', {icon:16, shade: 0.1, time:0})" title="微博登入" class="iconfont icon-weibo"></a>
-            </li>
-             -->
+            <c:if test="${user==null}">
+                <li class="layui-nav-item">
+                    <a class="iconfont icon-touxiang layui-hide-xs" href="${pageContext.servletContext.contextPath}/login"></a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="${pageContext.servletContext.contextPath}/login">登入</a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="${pageContext.servletContext.contextPath}/reg">注册</a>
+                </li>
+                <li class="layui-nav-item layui-hide-xs">
+                    <a href="/app/qq/" onclick="layer.msg('正在通过QQ登入', {icon:16, shade: 0.1, time:0})" title="QQ登入" class="iconfont icon-qq"></a>
+                </li>
+                <li class="layui-nav-item layui-hide-xs">
+                    <a href="/app/weibo/" onclick="layer.msg('正在通过微博登入', {icon:16, shade: 0.1, time:0})" title="微博登入" class="iconfont icon-weibo"></a>
+                </li>
+            </c:if>
+
 
             <!-- 登入后的状态 -->
-            <li class="layui-nav-item">
-                <a class="fly-nav-avatar" href="javascript:;">
-                    <cite class="layui-hide-xs">贤心</cite>
-                    <i class="iconfont icon-renzheng layui-hide-xs" title="认证信息：layui 作者"></i>
-                    <i class="layui-badge fly-badge-vip layui-hide-xs">VIP3</i>
-                    <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg">
-                </a>
-                <dl class="layui-nav-child">
-                    <dd><a href="../user/set.html"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
-                    <dd><a href="../user/message.html"><i class="iconfont icon-tongzhi" style="top: 4px;"></i>我的消息</a></dd>
-                    <dd><a href="../user/home.html"><i class="layui-icon" style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a></dd>
-                    <hr style="margin: 5px 0;">
-                    <dd><a href="" style="text-align: center;">退出</a></dd>
-                </dl>
-            </li>
+            <c:if test="${user!=null}">
+                <li class="layui-nav-item">
+                    <a class="fly-nav-avatar" href="javascript:;">
+                        <cite class="layui-hide-xs">${user.nickname}</cite>
+                        <i class="iconfont icon-renzheng layui-hide-xs" title="认证信息：layui 作者"></i>
+                        <i class="layui-badge fly-badge-vip layui-hide-xs">VIP3</i>
+                        <img src="${pageContext.servletContext.contextPath}/images/avatar/${user.avatar}">
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="user/set.html"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
+                        <dd><a href="user/message.html"><i class="iconfont icon-tongzhi" style="top: 4px;"></i>我的消息</a></dd>
+                        <dd><a href="user/home.html"><i class="layui-icon" style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a></dd>
+                        <hr style="margin: 5px 0;">
+                        <dd><a href="/user/logout/" style="text-align: center;">退出</a></dd>
+                    </dl>
+                </li>
+            </c:if>
         </ul>
     </div>
 </div>
@@ -108,74 +112,84 @@
 <div class="layui-container">
     <div class="layui-row layui-col-space15">
         <div class="layui-col-md8 content detail">
+            <c:if test="${article!=null}">
+
             <div class="fly-panel detail-box">
-                <h1>Fly Template v3.0，基于 layui 的极简社区页面模版</h1>
+                <h1>${article.title}</h1>
                 <div class="fly-detail-info">
                     <!-- <span class="layui-badge">审核中</span> -->
-                    <span class="layui-badge layui-bg-green fly-detail-column">动态</span>
+                    <span class="layui-badge layui-bg-green fly-detail-column">${article.catenameZh}</span>
 
+                    <c:if test="${article.end==false}">
                     <span class="layui-badge" style="background-color: #999;">未结</span>
-                    <!-- <span class="layui-badge" style="background-color: #5FB878;">已结</span> -->
-
+                    </c:if>
+                    <c:if test="${article.end==true}">
+                    <span class="layui-badge" style="background-color: #5FB878;">已结</span>
+                    </c:if>
+                    <c:if test="${article.top==true}">
                     <span class="layui-badge layui-bg-black">置顶</span>
+                    </c:if>
+                    <c:if test="${article.cream==true}">
                     <span class="layui-badge layui-bg-red">精帖</span>
-
+                    </c:if>
                     <div class="fly-admin-box" data-id="123">
+                        <c:if test="${user!=null&&(user.id==article.user.id )}">
                         <span class="layui-btn layui-btn-xs jie-admin" type="del">删除</span>
-
+                        </c:if>
+                        <c:if test="${user!=null&&user.id==article.user.id }">
+                        <c:if test="${article.stop==false}">
                         <span class="layui-btn layui-btn-xs jie-admin" type="set" field="stick" rank="1">置顶</span>
-                        <!-- <span class="layui-btn layui-btn-xs jie-admin" type="set" field="stick" rank="0" style="background-color:#ccc;">取消置顶</span> -->
-
+                        </c:if>
+                        </c:if>
+                        <c:if test="${user!=null&&user.id==article.user.id }">
+                            <c:if test="${article.top==true}">
+                        <span class="layui-btn layui-btn-xs jie-admin" type="set" field="stick" rank="0" style="background-color:#ccc;">取消置顶</span>
+                        </c:if>
+                        </c:if>
+                        <c:if test="${user!=null&&user.id==article.user.id }">
+                            <c:if test="${article.cream==false}">
                         <span class="layui-btn layui-btn-xs jie-admin" type="set" field="status" rank="1">加精</span>
-                        <!-- <span class="layui-btn layui-btn-xs jie-admin" type="set" field="status" rank="0" style="background-color:#ccc;">取消加精</span> -->
+                        </c:if>
+                        </c:if>
+                        <c:if test="${user!=null&&user.id==article.user.id }">
+                            <c:if test="${article.cream==true}">
+                        <span class="layui-btn layui-btn-xs jie-admin" type="set" field="status" rank="0" style="background-color:#ccc;">取消加精</span>
+                        </c:if>
+                        </c:if>
                     </div>
                     <span class="fly-list-nums">
-            <a href="#comment"><i class="iconfont" title="回答">&#xe60c;</i> 66</a>
-            <i class="iconfont" title="人气">&#xe60b;</i> 99999
+            <a href="#comment"><i class="iconfont" title="回答">&#xe60c;</i>${article.replyNum}</a>
+            <i class="iconfont" title="人气">&#xe60b;</i> ${article.views}
           </span>
                 </div>
                 <div class="detail-about">
                     <a class="fly-avatar" href="../user/home.html">
-                        <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt="贤心">
+                        <img src="${pageContext.servletContext.contextPath}/images/avatar/${article.user.avatar}" alt="${article.user.nickname}">
                     </a>
                     <div class="fly-detail-user">
                         <a href="../user/home.html" class="fly-link">
-                            <cite>贤心</cite>
+                            <cite>${article.user.nickname}</cite>
                             <i class="iconfont icon-renzheng" title="认证信息：{{ rows.user.approve }}"></i>
                             <i class="layui-badge fly-badge-vip">VIP3</i>
                         </a>
-                        <span>2017-11-30</span>
+                        <span>${article.publishTime}</span>
                     </div>
                     <div class="detail-hits" id="LAY_jieAdmin" data-id="123">
-                        <span style="padding-right: 10px; color: #FF7200">悬赏：60飞吻</span>
+                        <span style="padding-right: 10px; color: #FF7200">悬赏：${article.payKiss}飞吻</span>
+                        <c:if test="${user!=null&&user.id==article.uid}">
                         <span class="layui-btn layui-btn-xs jie-admin" type="edit"><a href="add.html">编辑此贴</a></span>
+                        </c:if>
                     </div>
                 </div>
                 <div class="detail-body photos">
                     <p>
-                        该模版由 layui官方社区（<a href="http://fly.layui.com/" target="_blank">fly.layui.com</a>）倾情提供，只为表明我们对 layui 执着的信念、以及对未来持续加强的承诺。该模版基于 layui 搭建而成，可作为极简通用型社区的页面支撑。
+                            ${article.content}
                     </p>
-                    <p>更新日志：</p>
-                    <pre>
-# v3.0 2017-11-30
-* 采用 layui 2.2.3 作为 UI 支撑
-* 全面同步最新的 Fly 社区风格，各种细节得到大幅优化
-* 更友好的响应式适配能力
-</pre>
 
-                    下载<hr>
-                    <p>
-                        官网：<a href="http://www.layui.com/template/fly/" target="_blank">http://www.layui.com/template/fly/</a><br>
-                        码云：<a href="https://gitee.com/sentsin/fly/" target="_blank">https://gitee.com/sentsin/fly/</a><br>
-                        GitHub：<a href="https://github.com/layui/fly" target="_blank">https://github.com/layui/fly</a>
-                    </p>
-                    封面<hr>
-                    <p>
-                        <img src="${pageContext.servletContext.contextPath}/res/images/fly.jpg" alt="Fly社区">
-                    </p>
                 </div>
             </div>
 
+            </c:if>
             <div class="fly-panel detail-box" id="flyReply">
                 <fieldset class="layui-elem-field layui-field-title" style="text-align: center;">
                     <legend>回帖</legend>

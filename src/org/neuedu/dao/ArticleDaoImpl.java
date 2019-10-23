@@ -179,7 +179,7 @@ public class ArticleDaoImpl implements ArticleDao {
         Article article =null;
         try {
             conn = DBUtils.getInstance().getConnection();
-            String sql = "select title,catnameZh,nickname,DATE_FORMAT(publishtime,'%Y-%m-%d'),paykiss,isend,isstop,iscream,views,content,avatar,a.id aid,replynum\n" +
+            String sql = "select title,catnameZh,nickname,DATE_FORMAT(publishtime,'%Y-%m-%d') publishtime,paykiss,isend,isstop,iscream,views,content,avatar,a.id aid,replynum\n" +
                     "FROM article a\n" +
                     "join category c\n" +
                     "on a.cid = c.id\n" +

@@ -126,7 +126,7 @@
                         </a>
                         <h2>
                             <a class="layui-badge">${top.catenameZh}</a>
-                            <a href="${pageContext.servletContext.contextPath}/detail?${id=top.id}">${top.title}</a>
+                            <a href="${pageContext.servletContext.contextPath}/detail?id=${top.id}">${top.title}</a>
                         </h2>
                         <div class="fly-list-info">
                             <a href="user/home.html" link>
