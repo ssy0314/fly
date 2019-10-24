@@ -6,6 +6,27 @@ public class Indexloader {
     private List<Category>  categoryList;
     private List<Article>  topArticleList;
     private List<Article>  tenArticleList;
+    private List<Reply>  replyTopArticleList;
+    private List<Article>  hotReplyArticleList;
+
+    public List<Reply> getReplyTopArticleList() {
+        return replyTopArticleList;
+    }
+
+    public void setReplyTopArticleList(List<Reply> replyTopArticleList) {
+        this.replyTopArticleList = replyTopArticleList;
+    }
+
+    public List<Article> getHotReplyArticleList() {
+        return hotReplyArticleList;
+    }
+
+    public void setHotReplyArticleList(List<Article> hotReplyArticleList) {
+        this.hotReplyArticleList = hotReplyArticleList;
+    }
+
+
+
 
     public List<Category> getCategoryList() {
         return categoryList;
@@ -30,6 +51,6 @@ public class Indexloader {
     public void setTenArticleList(List<Article> tenArticleList) {
         this.tenArticleList = tenArticleList;
     }
-//周榜
+    //周榜
     //本周热议
 }

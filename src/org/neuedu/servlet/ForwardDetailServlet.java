@@ -1,6 +1,7 @@
 package org.neuedu.servlet;
 
 import org.neuedu.bean.Article;
+import org.neuedu.bean.Reply;
 import org.neuedu.bean.User;
 import org.neuedu.service.ArticleService;
 import org.neuedu.service.ArticleServiceImpl;
@@ -11,9 +12,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "ForwardReplyServlet",urlPatterns = "/detail")
-public class ForwardReplyServlet extends HttpServlet {
+public class ForwardDetailServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request,response);
     }
@@ -23,8 +25,12 @@ public class ForwardReplyServlet extends HttpServlet {
         ArticleService service = new ArticleServiceImpl();
         Article article = service.loadArticle(Integer.valueOf(id));
         request.setAttribute("article",article);
-        request.getSession().getAttribute("user");
+        List<Reply> replyList = article.getReplyList();
+        System.out.println(article.getUser().getId());
+        for (Reply reply : replyList) {
+            System.out.println(reply.getUser().getId());
 
+        }
 
         request.getRequestDispatcher("/WEB-INF/html/jie/detail.jsp").forward(request,response);
     }

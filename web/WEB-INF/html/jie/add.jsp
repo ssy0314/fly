@@ -73,7 +73,7 @@
                         <dd><a href="../user/message.html"><i class="iconfont icon-tongzhi" style="top: 4px;"></i>我的消息</a></dd>
                         <dd><a href="../user/home.html"><i class="layui-icon" style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a></dd>
                         <hr style="margin: 5px 0;">
-                        <dd><a href="" style="text-align: center;">退出</a></dd>
+                        <dd><a id="logoutbtn" href="${pageContext.servletContext.contextPath}/logout" style="text-align: center;">退出</a></dd>
                     </dl>
                 </li>
             </c:if>
@@ -216,8 +216,9 @@
             return false;
         }
     }
+
 </script>
-</script>
+<script src="${pageContext.servletContext.contextPath}/logout.js"  charset="utf-8"></script>
 
 </body>
 </html>

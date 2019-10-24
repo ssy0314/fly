@@ -1,6 +1,7 @@
 package org.neuedu.dao;
 
 import org.neuedu.bean.Article;
+import org.neuedu.bean.Reply;
 import org.neuedu.bean.User;
 import org.neuedu.utils.DBUtils;
 
@@ -172,6 +173,78 @@ public class ArticleDaoImpl implements ArticleDao {
     }
 
     @Override
+    public List<Article> getReplyTopArticleList() { Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<Article> list=new ArrayList<>();
+        try {
+            conn = DBUtils.getInstance().getConnection();
+            String sql = "SELECT title,a.id aid\n" +
+                    "from article a\n" +
+                    "join replay r\n" +
+                    "on a.id =r.uid\n" +
+                    "WHERE TIMESTAMPDIFF(WEEK,DATE_FORMAT(replaytime,'%Y-%m-%d'),DATE_FORMAT(NOW(),'%Y-%m-%d'))=0\n" +
+                    "ORDER BY replynum DESC\n" +
+                    "LIMIT 0,10";
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Article article = new Article();
+               article.setTitle(rs.getString("title"));
+               article.setId(rs.getInt("aid"));
+                list.add(article);
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBUtils.getInstance().close(rs);
+            DBUtils.getInstance().close(ps);
+            DBUtils.getInstance().close(conn);
+        }
+        return list;
+    }
+
+    @Override
+    public List<Reply> getHotReplyArticleList() {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<Reply> list=new ArrayList<>();
+        try {
+            conn = DBUtils.getInstance().getConnection();
+            String sql = "select uid,nickname,avatar,count(*) counts\n" +
+                    "from replay r\n" +
+                    "join user u\n" +
+                    "on r.uid = u.id\n" +
+                    "WHERE TIMESTAMPDIFF(WEEK,DATE_FORMAT(replaytime,'%Y-%m-%d'),DATE_FORMAT(NOW(),'%Y-%m-%d'))=0\n" +
+                    "group by uid,nickname\n" +
+                    "ORDER BY count(*) DESC\n" +
+                    "LIMIT 0,12";
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Reply reply = new Reply();
+                User user = new User();
+                user.setNickname(rs.getString("nickname"));
+                user.setAvatar(rs.getString("avatar"));
+                user.setId(rs.getInt("uid"));
+                reply.setCounts(rs.getInt("counts"));
+                reply.setUser(user);
+                list.add(reply);
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBUtils.getInstance().close(rs);
+            DBUtils.getInstance().close(ps);
+            DBUtils.getInstance().close(conn);
+        }
+        return list;
+    }
+
+    @Override
     public Article serchArticleById(Integer id) {
         Connection conn = null;
         PreparedStatement ps = null;
@@ -179,7 +252,7 @@ public class ArticleDaoImpl implements ArticleDao {
         Article article =null;
         try {
             conn = DBUtils.getInstance().getConnection();
-            String sql = "select title,catnameZh,nickname,DATE_FORMAT(publishtime,'%Y-%m-%d') publishtime,paykiss,isend,isstop,iscream,views,content,avatar,a.id aid,replynum\n" +
+            String sql = "select u.id uid,title,catnameZh,nickname,DATE_FORMAT(publishtime,'%Y-%m-%d') publishtime,paykiss,isend,isstop,iscream,views,content,avatar,a.id aid,replynum\n" +
                     "FROM article a\n" +
                     "join category c\n" +
                     "on a.cid = c.id\n" +
@@ -194,6 +267,7 @@ public class ArticleDaoImpl implements ArticleDao {
                 User user = new User();
                 user.setNickname(rs.getString("nickname"));
                 user.setAvatar(rs.getString("avatar"));
+                user.setId(rs.getInt("uid"));
                 article.setId(rs.getInt("aid"));
                 article.setTitle(rs.getString("title"));
                 article.setCatenameZh(rs.getString("catnameZh"));
@@ -217,5 +291,61 @@ public class ArticleDaoImpl implements ArticleDao {
             DBUtils.getInstance().close(conn);
         }
         return article;
+    }
+
+    @Override
+    public int updateArticleViewsById(Integer id) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        int count = 0;
+        try {
+            conn = DBUtils.getInstance().getConnection();
+            conn.setAutoCommit(false);
+            String sql = "update article set views = views+1 where id=?";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            count = ps.executeUpdate();
+            conn.commit();
+        }catch (Exception e){
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            e.printStackTrace();
+        }finally {
+            DBUtils.getInstance().close(ps);
+            DBUtils.getInstance().close(conn);
+        }
+        return count;
+
+    }
+
+    @Override
+    public int updateArticleReplynumById(Reply reply) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        int count = 0;
+        try {
+            conn = DBUtils.getInstance().getConnection();
+            conn.setAutoCommit(false);
+            String sql = "update article set replynum = replynum+1 where id=?";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, reply.getAid());
+            count = ps.executeUpdate();
+            conn.commit();
+        }catch (Exception e){
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            e.printStackTrace();
+        }finally {
+            DBUtils.getInstance().close(ps);
+            DBUtils.getInstance().close(conn);
+        }
+        return count;
     }
 }

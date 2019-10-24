@@ -1,6 +1,7 @@
 package org.neuedu.dao;
 
 import org.neuedu.bean.Article;
+import org.neuedu.bean.Reply;
 
 import java.util.List;
 
@@ -13,10 +14,12 @@ public interface ArticleDao {
     //获取综合（综合，未结，已结，精华）列表
     List<Article> getTenMainArticleList(Integer tid);
     //回贴周榜
-    Article serchArticleById(Integer id);
-
-
-
+    List<Article> getReplyTopArticleList();
     //本周热议
+    List<Reply> getHotReplyArticleList();
+
+    Article serchArticleById(Integer id);
+    int updateArticleViewsById(Integer id);
+    int updateArticleReplynumById(Reply reply);
 
 }

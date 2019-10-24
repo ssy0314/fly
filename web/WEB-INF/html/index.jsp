@@ -12,6 +12,7 @@
     <meta charset="utf-8">
     <title>基于 layui 的极简社区页面模版</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="fly,layui,前端社区">
     <meta name="description" content="Fly社区是模块化前端UI框架Layui的官网社区，致力于为web开发提供强劲动力">
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/res/layui/css/layui.css">
@@ -72,7 +73,7 @@
                         <dd><a href="user/message.html"><i class="iconfont icon-tongzhi" style="top: 4px;"></i>我的消息</a></dd>
                         <dd><a href="user/home.html"><i class="layui-icon" style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a></dd>
                         <hr style="margin: 5px 0;">
-                        <dd><a href="/user/logout/" style="text-align: center;">退出</a></dd>
+                        <dd><a id="logoutbtn"  href="${pageContext.servletContext.contextPath}/logout" style="text-align: center;">退出</a></dd>
                     </dl>
                 </li>
             </c:if>
@@ -436,7 +437,9 @@
     }).extend({
         fly: 'index'
     }).use('fly');
+
 </script>
+<script src="${pageContext.servletContext.contextPath}/logout.js"  charset="utf-8"></script>
 
 <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_30088308'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "w.cnzz.com/c.php%3Fid%3D30088308' type='text/javascript'%3E%3C/script%3E"));</script>
 

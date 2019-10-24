@@ -1,5 +1,7 @@
 package org.neuedu.bean;
 
+import java.util.List;
+
 public class Article {
     private Integer id;
     private String title;
@@ -16,6 +18,24 @@ public class Article {
     private String content;
     private Boolean status;
     private String catenameZh;
+    private String replyTime;
+    private List<Reply> replyList;
+
+    public List<Reply> getReplyList() {
+        return replyList;
+    }
+
+    public void setReplyList(List<Reply> replyList) {
+        this.replyList = replyList;
+    }
+
+    public String getReplyTime() {
+        return replyTime;
+    }
+
+    public void setReplyTime(String replyContent) {
+        this.replyTime = replyContent;
+    }
 
     public String getCatenameZh() {
         return catenameZh;

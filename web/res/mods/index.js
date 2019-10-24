@@ -289,7 +289,7 @@ layui.define(['layer', 'laytpl', 'form', 'element', 'upload', 'util'], function(
             msg.on('click', function(){
               fly.json('/message/read', {}, function(res){
                 if(res.status === 0){
-                  location.href = '/user/message/';
+                  location.href = '../..';
                 }
               });
             });

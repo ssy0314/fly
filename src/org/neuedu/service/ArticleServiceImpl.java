@@ -3,16 +3,15 @@ package org.neuedu.service;
 import org.neuedu.bean.Article;
 import org.neuedu.bean.Category;
 import org.neuedu.bean.Indexloader;
-import org.neuedu.dao.ArticleDao;
-import org.neuedu.dao.ArticleDaoImpl;
-import org.neuedu.dao.CategoryDao;
-import org.neuedu.dao.CategoryDaoImpl;
+import org.neuedu.bean.Reply;
+import org.neuedu.dao.*;
 
 import java.util.List;
 
 public class ArticleServiceImpl implements ArticleService {
    private ArticleDao articleDao = new ArticleDaoImpl();
    private CategoryDao categoryDao = new CategoryDaoImpl();
+   private ReplyDao replyDao = new ReplyDaoImpl();
    @Override
     public int publishArticle(Article article) {
         int i = articleDao.saveArticle(article);
@@ -32,18 +31,24 @@ public class ArticleServiceImpl implements ArticleService {
         //获取主要文章信息
         List<Article> tenMainArticleList = articleDao.getTenMainArticleList(tid);
         //获取回贴周榜
+        List<Reply> replyTopArticleList = articleDao.getReplyTopArticleList();
         //获取本周热议
-       Indexloader indexloader = new Indexloader();
+        List<Article> hotReplyArticleList = articleDao.getHotReplyArticleList();
+        Indexloader indexloader = new Indexloader();
        indexloader.setCategoryList(categories);
        indexloader.setTenArticleList(tenMainArticleList);
        indexloader.setTopArticleList(topArticleList);
+       indexloader.setHotReplyArticleList(hotReplyArticleList);
+       indexloader.setReplyTopArticleList(replyTopArticleList);
         return indexloader;
     }
 
     @Override
     public Article loadArticle(Integer id) {
         Article article = articleDao.serchArticleById(id);
-
+        List<Reply> list = replyDao.serchReplyByAid(id);
+        article.setReplyList(list);
+        articleDao.updateArticleViewsById(id);
         return article;
     }
 
