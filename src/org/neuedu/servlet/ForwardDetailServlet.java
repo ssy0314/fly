@@ -24,13 +24,11 @@ public class ForwardDetailServlet extends HttpServlet {
         String id = request.getParameter("id");
         ArticleService service = new ArticleServiceImpl();
         Article article = service.loadArticle(Integer.valueOf(id));
+        List<Article> articles = service.hotReplyAticleInfo();
         request.setAttribute("article",article);
-        List<Reply> replyList = article.getReplyList();
-        System.out.println(article.getUser().getId());
-        for (Reply reply : replyList) {
-            System.out.println(reply.getUser().getId());
+        request.setAttribute("hotreply",articles);
 
-        }
+
 
         request.getRequestDispatcher("/WEB-INF/html/jie/detail.jsp").forward(request,response);
     }

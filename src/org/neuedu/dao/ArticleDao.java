@@ -14,9 +14,9 @@ public interface ArticleDao {
     //获取综合（综合，未结，已结，精华）列表
     List<Article> getTenMainArticleList(Integer tid);
     //回贴周榜
-    List<Article> getReplyTopArticleList();
+    List<Reply> getReplyTopArticleList();
     //本周热议
-    List<Reply> getHotReplyArticleList();
+    List<Article> getHotReplyArticleList();
 
     Article serchArticleById(Integer id);
     int updateArticleViewsById(Integer id);

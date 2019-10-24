@@ -173,17 +173,18 @@ public class ArticleDaoImpl implements ArticleDao {
     }
 
     @Override
-    public List<Article> getReplyTopArticleList() { Connection conn = null;
+    public List<Article>  getHotReplyArticleList(){ Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         List<Article> list=new ArrayList<>();
         try {
             conn = DBUtils.getInstance().getConnection();
-            String sql = "SELECT title,a.id aid\n" +
+            String sql = "SELECT title, a.id aid,replynum\n" +
                     "from article a\n" +
                     "join replay r\n" +
-                    "on a.id =r.uid\n" +
+                    "on a.id =r.aid\n" +
                     "WHERE TIMESTAMPDIFF(WEEK,DATE_FORMAT(replaytime,'%Y-%m-%d'),DATE_FORMAT(NOW(),'%Y-%m-%d'))=0\n" +
+                    "GROUP BY aid\n" +
                     "ORDER BY replynum DESC\n" +
                     "LIMIT 0,10";
             ps = conn.prepareStatement(sql);
@@ -192,6 +193,7 @@ public class ArticleDaoImpl implements ArticleDao {
                 Article article = new Article();
                article.setTitle(rs.getString("title"));
                article.setId(rs.getInt("aid"));
+               article.setReplyNum(rs.getInt("replynum"));
                 list.add(article);
 
             }
@@ -206,7 +208,7 @@ public class ArticleDaoImpl implements ArticleDao {
     }
 
     @Override
-    public List<Reply> getHotReplyArticleList() {
+    public List<Reply> getReplyTopArticleList() {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;

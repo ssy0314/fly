@@ -33,7 +33,7 @@ public class ArticleServiceImpl implements ArticleService {
         //获取回贴周榜
         List<Reply> replyTopArticleList = articleDao.getReplyTopArticleList();
         //获取本周热议
-        List<Article> hotReplyArticleList = articleDao.getHotReplyArticleList();
+        List<Article>  hotReplyArticleList = articleDao.getHotReplyArticleList();
         Indexloader indexloader = new Indexloader();
        indexloader.setCategoryList(categories);
        indexloader.setTenArticleList(tenMainArticleList);
@@ -50,6 +50,11 @@ public class ArticleServiceImpl implements ArticleService {
         article.setReplyList(list);
         articleDao.updateArticleViewsById(id);
         return article;
+    }
+
+    @Override
+    public List<Article> hotReplyAticleInfo() {
+        return articleDao.getHotReplyArticleList();
     }
 
 }

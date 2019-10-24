@@ -84,7 +84,7 @@
     <div class="fly-panel fly-column">
         <div class="layui-container">
             <ul class="layui-clear">
-                <li class="layui-hide-xs"><a href="/">首页</a></li>
+                <li class="layui-hide-xs"><a href="${pageContext.servletContext.contextPath}/index">首页</a></li>
                 <li class="layui-this"><a href="">提问</a></li>
                 <li><a href="">分享<span class="layui-badge-dot"></span></a></li>
                 <li><a href="">讨论</a></li>
@@ -269,40 +269,7 @@
                     </li>
                         </c:forEach>
                     </c:if>
-<%--                    <li data-id="111">--%>
-<%--                        <a name="item-1111111111"></a>--%>
-<%--                        <div class="detail-about detail-about-reply">--%>
-<%--                            <a class="fly-avatar" href="">--%>
-<%--                                <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt=" ">--%>
-<%--                            </a>--%>
-<%--                            <div class="fly-detail-user">--%>
-<%--                                <a href="" class="fly-link">--%>
-<%--                                    <cite>贤心</cite>--%>
-<%--                                </a>--%>
-<%--                            </div>--%>
-<%--                            <div class="detail-hits">--%>
-<%--                                <span>2017-11-30</span>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                        <div class="detail-body jieda-body photos">--%>
-<%--                            <p>蓝瘦那个香菇，这是一条没被采纳的回帖</p>--%>
-<%--                        </div>--%>
-<%--                        <div class="jieda-reply">--%>
-<%--              <span class="jieda-zan" type="zan">--%>
-<%--                <i class="iconfont icon-zan"></i>--%>
-<%--                <em>0</em>--%>
-<%--              </span>--%>
-<%--                            <span type="reply">--%>
-<%--                <i class="iconfont icon-svgmoban53"></i>--%>
-<%--                回复--%>
-<%--              </span>--%>
-<%--                            <div class="jieda-admin">--%>
-<%--                                <span type="edit">编辑</span>--%>
-<%--                                <span type="del">删除</span>--%>
-<%--                                <span class="jieda-accept" type="accept">采纳</span>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                    </li>--%>
+
                     <c:if test="${article.replyList.size()==0}">
                     <!-- 无数据时 -->
                      <li class="fly-none">消灭零回复</li>
@@ -328,46 +295,18 @@
         <div class="layui-col-md4">
             <dl class="fly-panel fly-list-one">
                 <dt class="fly-panel-title">本周热议</dt>
-                <dd>
-                    <a href="">基于 layui 的极简社区页面模版</a>
-                    <span><i class="iconfont icon-pinglun1"></i> 16</span>
-                </dd>
-                <dd>
-                    <a href="">基于 layui 的极简社区页面模版</a>
-                    <span><i class="iconfont icon-pinglun1"></i> 16</span>
-                </dd>
-                <dd>
-                    <a href="">基于 layui 的极简社区页面模版</a>
-                    <span><i class="iconfont icon-pinglun1"></i> 16</span>
-                </dd>
-                <dd>
-                    <a href="">基于 layui 的极简社区页面模版</a>
-                    <span><i class="iconfont icon-pinglun1"></i> 16</span>
-                </dd>
-                <dd>
-                    <a href="">基于 layui 的极简社区页面模版</a>
-                    <span><i class="iconfont icon-pinglun1"></i> 16</span>
-                </dd>
-                <dd>
-                    <a href="">基于 layui 的极简社区页面模版</a>
-                    <span><i class="iconfont icon-pinglun1"></i> 16</span>
-                </dd>
-                <dd>
-                    <a href="">基于 layui 的极简社区页面模版</a>
-                    <span><i class="iconfont icon-pinglun1"></i> 16</span>
-                </dd>
-                <dd>
-                    <a href="">基于 layui 的极简社区页面模版</a>
-                    <span><i class="iconfont icon-pinglun1"></i> 16</span>
-                </dd>
-                <dd>
-                    <a href="">基于 layui 的极简社区页面模版</a>
-                    <span><i class="iconfont icon-pinglun1"></i> 16</span>
-                </dd>
-                <dd>
-                    <a href="">基于 layui 的极简社区页面模版</a>
-                    <span><i class="iconfont icon-pinglun1"></i> 16</span>
-                </dd>
+                <c:if test="${hotreply.size()!=0}">
+                    <c:forEach items="${hotreply}" var="hotreply">
+                        <dd>
+                            <a href="${pageContext.servletContext.contextPath}/detail?id=${hotreply.id}">${hotreply.title}</a>
+                            <span><i class="iconfont icon-pinglun1"></i>${hotreply.replyNum}</span>
+                        </dd>
+                    </c:forEach>
+                </c:if>
+                <c:if test="${indexInfo.hotReplyArticleList.size()==0}">
+                    <!-- 无数据时 -->
+                    <div class="fly-none">没有相关数据</div>
+                </c:if>
 
                 <!-- 无数据时 -->
                 <!--
