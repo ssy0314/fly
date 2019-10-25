@@ -12,4 +12,7 @@ public interface ArticleService {
     Indexloader loaderIndexInfo(Integer tid);
     Article loadArticle(Integer id);
     List<Article> hotReplyAticleInfo();
+
+
+    Indexloader loaderIndexcateInfo(Integer id);
 }

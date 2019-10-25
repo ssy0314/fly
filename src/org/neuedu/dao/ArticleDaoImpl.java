@@ -350,4 +350,49 @@ public class ArticleDaoImpl implements ArticleDao {
         }
         return count;
     }
+
+    @Override
+    public List<Article> serchArticleByCateId(Integer id) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<Article> list=new ArrayList<>();
+        try {
+            conn = DBUtils.getInstance().getConnection();
+            String sql = "select a.id id,title,catnameZh,nickname,DATE_FORMAT(publishtime,'%Y-%m-%d') publishtime,paykiss,isend,iscream,isstop,avatar,replynum\n" +
+                    "FROM article a\n" +
+                    "join category c\n" +
+                    "on a.cid = c.id\n" +
+                    "join user u\n" +
+                    "ON u.id = a.uid where c.id =? ORDER BY DATE_FORMAT(publishtime,'%Y-%m-%d %H:%i:%s') DESC limit 0,10";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1,id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Article article = new Article();
+                User user = new User();
+                user.setNickname(rs.getString("nickname"));
+                user.setAvatar(rs.getString("avatar"));
+                article.setId(rs.getInt("id"));
+                article.setTitle(rs.getString("title"));
+                article.setCatenameZh(rs.getString("catnameZh"));
+                article.setPublishTime(rs.getString("publishtime"));
+                article.setPayKiss(rs.getInt("paykiss"));
+                article.setEnd(rs.getBoolean("isend"));
+                article.setCream(rs.getBoolean("iscream"));
+                article.setTop(rs.getBoolean("isstop"));
+                article.setReplyNum(rs.getInt("replynum"));
+                article.setUser(user);
+                list.add(article);
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBUtils.getInstance().close(rs);
+            DBUtils.getInstance().close(ps);
+            DBUtils.getInstance().close(conn);
+        }
+        return list;
+    }
 }

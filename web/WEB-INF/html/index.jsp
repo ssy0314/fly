@@ -87,12 +87,11 @@
     <div class="layui-container">
         <ul class="layui-clear">
             <li class="layui-hide-xs layui-this"><a href="${pageContext.servletContext.contextPath}/index">首页</a></li>
-            <li><a href="jie/index.html">提问</a></li>
-            <li><a href="jie/index.html">分享<span class="layui-badge-dot"></span></a></li>
-            <li><a href="jie/index.html">讨论</a></li>
-            <li><a href="jie/index.html">建议</a></li>
-            <li><a href="jie/index.html">公告</a></li>
-            <li><a href="jie/index.html">动态</a></li>
+<c:if test="${indexInfo!=null}">
+    <c:forEach items="${indexInfo.categoryList}" var="cate">
+            <li><a href="${pageContext.servletContext.contextPath}/indexcate?id=${cate.id}">${cate.cateNameZh}</a></li>
+    </c:forEach>
+</c:if>
             <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="fly-mid"></span></li>
 
             <!-- 用户登入后显示 -->

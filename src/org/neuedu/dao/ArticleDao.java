@@ -22,4 +22,8 @@ public interface ArticleDao {
     int updateArticleViewsById(Integer id);
     int updateArticleReplynumById(Reply reply);
 
+
+    //按照分类id查询文章
+    List<Article> serchArticleByCateId(Integer id);
+
 }

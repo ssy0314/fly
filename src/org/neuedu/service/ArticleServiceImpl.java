@@ -57,4 +57,19 @@ public class ArticleServiceImpl implements ArticleService {
         return articleDao.getHotReplyArticleList();
     }
 
+    @Override
+    public Indexloader loaderIndexcateInfo(Integer id) {
+        //获取文章分类信息
+        List<Category> categories = categoryDao.serchAllCateListByRole();
+        //获取主要文章信息
+        List<Article> tenMainArticleList = articleDao.serchArticleByCateId(id);
+        //获取本周热议
+        List<Article>  hotReplyArticleList = articleDao.getHotReplyArticleList();
+        Indexloader indexloader = new Indexloader();
+        indexloader.setCategoryList(categories);
+        indexloader.setTenArticleList(tenMainArticleList);
+        indexloader.setHotReplyArticleList(hotReplyArticleList);
+        return indexloader;
+    }
+
 }
