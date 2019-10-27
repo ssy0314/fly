@@ -69,9 +69,9 @@
                         <img src="${pageContext.servletContext.contextPath}/images/avatar/${user.avatar}">
                     </a>
                     <dl class="layui-nav-child">
-                        <dd><a href="user/set.html"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
-                        <dd><a href="user/message.html"><i class="iconfont icon-tongzhi" style="top: 4px;"></i>我的消息</a></dd>
-                        <dd><a href="user/home.html"><i class="layui-icon" style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a></dd>
+                        <dd><a href="${pageContext.servletContext.contextPath}/user/set"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
+                        <dd><a href="${pageContext.servletContext.contextPath}/user/message.html"><i class="iconfont icon-tongzhi" style="top: 4px;"></i>我的消息</a></dd>
+                        <dd><a href="${pageContext.servletContext.contextPath}/user/home"><i class="layui-icon" style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a></dd>
                         <hr style="margin: 5px 0;">
                         <dd><a id="logoutbtn"  href="${pageContext.servletContext.contextPath}/logout" style="text-align: center;">退出</a></dd>
                     </dl>
@@ -95,8 +95,8 @@
             <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="fly-mid"></span></li>
 
             <!-- 用户登入后显示 -->
-            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="user/index.html">我发表的贴</a></li>
-            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="user/index.html#collection">我收藏的贴</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="${pageContext.servletContext.contextPath}/user/index">我发表的贴</a></li>
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="${pageContext.servletContext.contextPath}/user/index#collection">我收藏的贴</a></li>
         </ul>
 
         <div class="fly-column-right layui-hide-xs">

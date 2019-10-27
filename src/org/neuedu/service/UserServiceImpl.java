@@ -32,4 +32,22 @@ public class UserServiceImpl implements UserService {
         }
         return user1;
     }
+
+    @Override
+    public int updateUser(User user) {
+
+        return userDao.updateUserInformationByID(user);
+    }
+
+    @Override
+    public int updateUserPass(Integer id, String nowpass, String pass) {
+        String nowpass1 = MD5Utils.MD5Encode(nowpass, "utf8");
+        String pass1 = MD5Utils.MD5Encode(pass, "utf8");
+        return userDao.updateUserPasswordByID(id,nowpass1,pass1);
+    }
+
+    @Override
+    public int updateUserAvatar(Integer id, String avatar) {
+        return userDao.updateUserAvararByID(id,avatar);
+    }
 }

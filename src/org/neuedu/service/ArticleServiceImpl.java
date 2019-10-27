@@ -1,9 +1,6 @@
 package org.neuedu.service;
 
-import org.neuedu.bean.Article;
-import org.neuedu.bean.Category;
-import org.neuedu.bean.Indexloader;
-import org.neuedu.bean.Reply;
+import org.neuedu.bean.*;
 import org.neuedu.dao.*;
 
 import java.util.List;
@@ -12,6 +9,7 @@ public class ArticleServiceImpl implements ArticleService {
    private ArticleDao articleDao = new ArticleDaoImpl();
    private CategoryDao categoryDao = new CategoryDaoImpl();
    private ReplyDao replyDao = new ReplyDaoImpl();
+    private  CollectionDao collectionDao = new CollectionDaoImpl();
    @Override
     public int publishArticle(Article article) {
         int i = articleDao.saveArticle(article);
@@ -70,6 +68,18 @@ public class ArticleServiceImpl implements ArticleService {
         indexloader.setTenArticleList(tenMainArticleList);
         indexloader.setHotReplyArticleList(hotReplyArticleList);
         return indexloader;
+    }
+
+    @Override
+    public CollectionAndPublishedLoader CollectionAndPublishedInfo(Integer uid) {
+
+        CollectionAndPublishedLoader loader = new CollectionAndPublishedLoader();
+        List<Article> publishedList = articleDao.serchPublishedArticleByUid(uid);
+        List<Collection> collectedList = collectionDao.serchCollectedArticleByUid(uid);
+       loader.setCollectionList(collectedList);
+       loader.setPublishedList(publishedList);
+
+       return loader;
     }
 
 }

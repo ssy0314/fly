@@ -359,7 +359,7 @@ public class ArticleDaoImpl implements ArticleDao {
         List<Article> list=new ArrayList<>();
         try {
             conn = DBUtils.getInstance().getConnection();
-            String sql = "select a.id id,title,catnameZh,nickname,DATE_FORMAT(publishtime,'%Y-%m-%d') publishtime,paykiss,isend,iscream,isstop,avatar,replynum\n" +
+            String sql = "select a.id aid,title,catnameZh,nickname,DATE_FORMAT(publishtime,'%Y-%m-%d') publishtime,paykiss,isend,iscream,isstop,avatar,replynum\n" +
                     "FROM article a\n" +
                     "join category c\n" +
                     "on a.cid = c.id\n" +
@@ -373,7 +373,7 @@ public class ArticleDaoImpl implements ArticleDao {
                 User user = new User();
                 user.setNickname(rs.getString("nickname"));
                 user.setAvatar(rs.getString("avatar"));
-                article.setId(rs.getInt("id"));
+                article.setId(rs.getInt("aid"));
                 article.setTitle(rs.getString("title"));
                 article.setCatenameZh(rs.getString("catnameZh"));
                 article.setPublishTime(rs.getString("publishtime"));
@@ -383,6 +383,39 @@ public class ArticleDaoImpl implements ArticleDao {
                 article.setTop(rs.getBoolean("isstop"));
                 article.setReplyNum(rs.getInt("replynum"));
                 article.setUser(user);
+                list.add(article);
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBUtils.getInstance().close(rs);
+            DBUtils.getInstance().close(ps);
+            DBUtils.getInstance().close(conn);
+        }
+        return list;
+    }
+
+    @Override
+    public List<Article> serchPublishedArticleByUid(Integer uid) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<Article> list=new ArrayList<>();
+        try {
+            conn = DBUtils.getInstance().getConnection();
+            String sql = "select id,title,DATE_FORMAT(publishtime,'%Y/%m/%d %H:%i:%s') publishtime,views,replynum\n" +
+                    "from article where uid = ? ";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1,uid);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Article article = new Article();
+                article.setId(rs.getInt("id"));
+                article.setTitle(rs.getString("title"));
+                article.setPublishTime(rs.getString("publishtime"));
+                article.setReplyNum(rs.getInt("replynum"));
+                article.setViews(rs.getInt("views"));
                 list.add(article);
 
             }

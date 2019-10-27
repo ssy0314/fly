@@ -26,4 +26,9 @@ public interface ArticleDao {
     //按照分类id查询文章
     List<Article> serchArticleByCateId(Integer id);
 
+
+    //根据人物id查询人物发表过的文章
+
+    List<Article> serchPublishedArticleByUid(Integer uid);
+
 }

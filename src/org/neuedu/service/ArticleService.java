@@ -1,6 +1,7 @@
 package org.neuedu.service;
 
 import org.neuedu.bean.Article;
+import org.neuedu.bean.CollectionAndPublishedLoader;
 import org.neuedu.bean.Indexloader;
 
 import java.util.List;
@@ -15,4 +16,8 @@ public interface ArticleService {
 
 
     Indexloader loaderIndexcateInfo(Integer id);
+
+
+    //加载收藏与发布页信息
+    CollectionAndPublishedLoader CollectionAndPublishedInfo(Integer uid);
 }

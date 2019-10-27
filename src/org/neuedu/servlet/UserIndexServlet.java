@@ -1,6 +1,7 @@
 package org.neuedu.servlet;
 
-import org.neuedu.bean.Indexloader;
+import org.neuedu.bean.CollectionAndPublishedLoader;
+import org.neuedu.bean.User;
 import org.neuedu.service.ArticleService;
 import org.neuedu.service.ArticleServiceImpl;
 
@@ -11,17 +12,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "ForwardJieIndexServlet",urlPatterns = "/indexcate")
-public class ForwardJieIndexServlet extends HttpServlet {
+@WebServlet(name = "UserIndexServlet",urlPatterns ="/user/index")
+public class UserIndexServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+            doGet(request,response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String id = request.getParameter("id");
+        User user = (User)request.getSession().getAttribute("user");
+        Integer id = user.getId();
         ArticleService service = new ArticleServiceImpl();
-        Indexloader indexloader = service.loaderIndexcateInfo(Integer.valueOf(id));
-        request.setAttribute("indexloader",indexloader);
-        request.getRequestDispatcher("/WEB-INF/html/jie/index.jsp").forward(request,response);
+        CollectionAndPublishedLoader loader = service.CollectionAndPublishedInfo(id);
+        request.setAttribute("loader",loader);
+        request.getRequestDispatcher("/WEB-INF/html/user/index.jsp").forward(request,response);
     }
 }

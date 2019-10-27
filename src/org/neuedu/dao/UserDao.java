@@ -17,4 +17,16 @@ public interface UserDao {
     //根据用户邮箱查询用户角色
     List<Role> serchUserRoleByEmail(Integer uid);
 
+    //根据用户id修改用户信息
+    int updateUserInformationByID(User user);
+
+
+    //根据用户id和密码修改用户密码
+    int updateUserPasswordByID(Integer id,String nowpass,String pass);
+
+    //根据用户id修改头像
+    int updateUserAvararByID(Integer id,String avatar);
+
+
+
 }

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(filterName = "Filter2_UrlFilter",urlPatterns = {"/add",""})
+@WebFilter(filterName = "Filter2_UrlFilter",urlPatterns = {"/add","/user/index","/user/set","/user/home","/user/repass","/update/information"})
 public class Filter2_UrlFilter implements Filter {
     public void destroy() {
     }

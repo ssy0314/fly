@@ -196,4 +196,112 @@ public class UserDaoImpl implements UserDao {
         }
         return list;
     }
+
+    @Override
+    public int updateUserInformationByID(User user) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        int count = 0;
+        try {
+            conn = DBUtils.getInstance().getConnection();
+            conn.setAutoCommit(false);
+            String sql = "update user set email=?,nickname=?,gender=?,city=?,sign=? where id=?";
+
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, user.getEmail());
+            ps.setString(2, user.getNickname());
+            if(user.getGender()){ps.setInt(3, 1);}else{ps.setInt(3, 0);};
+            ps.setString(4, user.getCity());
+            ps.setString(5, user.getSign());
+            ps.setInt(6, user.getId());
+
+            count = ps.executeUpdate();
+            conn.commit();
+
+
+        } catch (Exception e) {
+            if (conn != null) {
+                try {
+                    conn.rollback();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+
+                } finally {
+                    DBUtils.getInstance().close(ps);
+                    DBUtils.getInstance().close(conn);
+                }
+            }
+        }
+        return count;
+    }
+
+    @Override
+    public int updateUserPasswordByID(Integer id, String nowpass, String pass) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        int count = 0;
+        try {
+            conn = DBUtils.getInstance().getConnection();
+            conn.setAutoCommit(false);
+            String sql = "update user set password = ? where id=? and password = ?";
+
+            ps = conn.prepareStatement(sql);
+            ps.setString(1,pass);
+            ps.setInt(2,id);
+            ps.setString(3,nowpass);
+
+            count = ps.executeUpdate();
+            conn.commit();
+
+
+        } catch (Exception e) {
+            if (conn != null) {
+                try {
+                    conn.rollback();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+
+                } finally {
+                    DBUtils.getInstance().close(ps);
+                    DBUtils.getInstance().close(conn);
+                }
+            }
+        }
+        return count;
+    }
+
+    @Override
+    public int updateUserAvararByID(Integer id,String avatar) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        int count = 0;
+        try {
+            conn = DBUtils.getInstance().getConnection();
+            conn.setAutoCommit(false);
+            String sql = "update user set avatar = ? where id=? ";
+
+            ps = conn.prepareStatement(sql);
+            ps.setString(1,avatar);
+            ps.setInt(2,id);
+
+
+            count = ps.executeUpdate();
+            conn.commit();
+
+
+        } catch (Exception e) {
+            if (conn != null) {
+                try {
+                    conn.rollback();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+
+                } finally {
+                    DBUtils.getInstance().close(ps);
+                    DBUtils.getInstance().close(conn);
+                }
+            }
+        }
+        return count;
+    }
 }
