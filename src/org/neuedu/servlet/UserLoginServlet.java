@@ -15,8 +15,11 @@ import java.io.IOException;
 @WebServlet(name = "UserLoginServlet",urlPatterns = "/user/login")
 public class UserLoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Boolean b = false;
+        request.getSession().setAttribute("msg",b);
         String email = request.getParameter("email");
         String pass = request.getParameter("pass");
+
         User user = new User();
         user.setEmail(email);
         user.setPassword(pass);

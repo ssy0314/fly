@@ -19,6 +19,7 @@ public class ForWardIndexServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
           //获取 主要文章信息的标识id
+
         String tid = request.getParameter("tid");
         if(tid==null){
             tid = "0";
@@ -29,6 +30,7 @@ public class ForWardIndexServlet extends HttpServlet {
         ArticleService service =new ArticleServiceImpl();
         Indexloader indexloader = service.loaderIndexInfo(Integer.valueOf(tid));
         request.setAttribute("indexInfo",indexloader);
+
         request.getRequestDispatcher("/WEB-INF/html/index.jsp").forward(request,response);
     }
 }

@@ -50,4 +50,10 @@ public class UserServiceImpl implements UserService {
     public int updateUserAvatar(Integer id, String avatar) {
         return userDao.updateUserAvararByID(id,avatar);
     }
+
+    @Override
+    public int updateUserSigntime(Integer id) {
+
+      return   userDao.updateUserSigntimeByID(id);
+    }
 }

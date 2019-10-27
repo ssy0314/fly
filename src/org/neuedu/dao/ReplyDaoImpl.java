@@ -82,4 +82,42 @@ public class ReplyDaoImpl implements ReplyDao {
         }
         return count;
     }
+
+    @Override
+    public List<Reply> serchReplyByUid(Integer uid) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Reply reply =null;
+        List<Reply> list = new ArrayList<>();
+        try {
+            conn = DBUtils.getInstance().getConnection();
+            String sql = "SELECT aid,title,replycontent,replaytime\n" +
+                    "from replay r\n" +
+                    "join article a\n" +
+                    "on r.aid = a.id\n" +
+                    "where r.uid=?";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1,uid);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                reply = new Reply();
+                reply.setReplyContent(rs.getString("replycontent"));
+                reply.setReplyTime(rs.getString("replaytime"));
+                reply.setAid(rs.getInt("aid"));
+                reply.setTitle(rs.getString("title"));
+
+                list.add(reply);
+
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DBUtils.getInstance().close(rs);
+            DBUtils.getInstance().close(ps);
+            DBUtils.getInstance().close(conn);
+        }
+        return list;
+    }
 }

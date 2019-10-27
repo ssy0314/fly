@@ -60,10 +60,11 @@
 </div>
 
 <div class="fly-home fly-panel" style="background-image: url();">
-    <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt="贤心">
+    <c:if test="${user!=null}">
+    <img src="${pageContext.servletContext.contextPath}/images/avatar/${user.avatar}" alt="${user.nickname}">
     <i class="iconfont icon-renzheng" title="Fly社区认证"></i>
     <h1>
-        贤心
+            ${user.nickname}
         <i class="iconfont icon-nan"></i>
         <!-- <i class="iconfont icon-nv"></i>  -->
         <i class="layui-badge fly-badge-vip">VIP3</i>
@@ -72,18 +73,18 @@
         <span style="color:#5FB878;">（社区之光）</span>
         <span>（该号已被封）</span>
         -->
-    </h1>
+<%--    </h1>--%>
 
-    <p style="padding: 10px 0; color: #5FB878;">认证信息：layui 作者</p>
+<%--    <p style="padding: 10px 0; color: #5FB878;">认证信息：layui 作者</p>--%>
 
     <p class="fly-home-info">
-        <i class="iconfont icon-kiss" title="飞吻"></i><span style="color: #FF7200;">66666 飞吻</span>
-        <i class="iconfont icon-shijian"></i><span>2015-6-17 加入</span>
-        <i class="iconfont icon-chengshi"></i><span>来自杭州</span>
+        <i class="iconfont icon-kiss" title="飞吻"></i><span style="color: #FF7200;">${user.kissnum} 飞吻</span>
+        <i class="iconfont icon-shijian"></i><span>${user.regtime} 加入</span>
+        <i class="iconfont icon-chengshi"></i><span>来自${user.city}</span>
     </p>
 
-    <p class="fly-home-sign">（人生仿若一场修行）</p>
-
+    <p class="fly-home-sign">${user.sign}</p>
+    </c:if>
     <div class="fly-sns" data-user="">
         <a href="javascript:;" class="layui-btn layui-btn-primary fly-imActive" data-type="addFriend">加为好友</a>
         <a href="javascript:;" class="layui-btn layui-btn-normal fly-imActive" data-type="chat">发起会话</a>
@@ -95,44 +96,48 @@
     <div class="layui-row layui-col-space15">
         <div class="layui-col-md6 fly-home-jie">
             <div class="fly-panel">
-                <h3 class="fly-panel-title">贤心 最近的提问</h3>
+                <h3 class="fly-panel-title">${user.nickname} 最近的提问</h3>
                 <ul class="jie-row">
+                    <c:if test="${homeloaderinfo!=null}">
+                        <c:forEach items="${homeloaderinfo.publishedList}" var="publish">
                     <li>
-                        <span class="fly-jing">精</span>
-                        <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-                        <i>刚刚</i>
-                        <em class="layui-hide-xs">1136阅/27答</em>
+                        <span class="fly-jing">${publish.catenameZh}</span>
+                        <a href="${pageContext.servletContext.contextPath}/detail?id=${publish.id}" class="jie-title"> ${publish.title}</a>
+                        <i>${publish.publishTime}</i>
+                        <em class="layui-hide-xs">${publish.views}阅/${publish.replyNum}答</em>
                     </li>
-                    <li>
-                        <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-                        <i>1天前</i>
-                        <em class="layui-hide-xs">1136阅/27答</em>
-                    </li>
-                    <li>
-                        <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-                        <i>2017-10-30</i>
-                        <em class="layui-hide-xs">1136阅/27答</em>
-                    </li>
-                    <li>
-                        <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-                        <i>1天前</i>
-                        <em class="layui-hide-xs">1136阅/27答</em>
-                    </li>
-                    <li>
-                        <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-                        <i>1天前</i>
-                        <em class="layui-hide-xs">1136阅/27答</em>
-                    </li>
-                    <li>
-                        <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-                        <i>1天前</i>
-                        <em class="layui-hide-xs">1136阅/27答</em>
-                    </li>
-                    <li>
-                        <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>
-                        <i>1天前</i>
-                        <em class="layui-hide-xs">1136阅/27答</em>
-                    </li>
+                        </c:forEach>
+                    </c:if>
+<%--                    <li>--%>
+<%--                        <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>--%>
+<%--                        <i>1天前</i>--%>
+<%--                        <em class="layui-hide-xs">1136阅/27答</em>--%>
+<%--                    </li>--%>
+<%--                    <li>--%>
+<%--                        <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>--%>
+<%--                        <i>2017-10-30</i>--%>
+<%--                        <em class="layui-hide-xs">1136阅/27答</em>--%>
+<%--                    </li>--%>
+<%--                    <li>--%>
+<%--                        <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>--%>
+<%--                        <i>1天前</i>--%>
+<%--                        <em class="layui-hide-xs">1136阅/27答</em>--%>
+<%--                    </li>--%>
+<%--                    <li>--%>
+<%--                        <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>--%>
+<%--                        <i>1天前</i>--%>
+<%--                        <em class="layui-hide-xs">1136阅/27答</em>--%>
+<%--                    </li>--%>
+<%--                    <li>--%>
+<%--                        <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>--%>
+<%--                        <i>1天前</i>--%>
+<%--                        <em class="layui-hide-xs">1136阅/27答</em>--%>
+<%--                    </li>--%>
+<%--                    <li>--%>
+<%--                        <a href="" class="jie-title"> 基于 layui 的极简社区页面模版</a>--%>
+<%--                        <i>1天前</i>--%>
+<%--                        <em class="layui-hide-xs">1136阅/27答</em>--%>
+<%--                    </li>--%>
                     <!-- <div class="fly-none" style="min-height: 50px; padding:30px 0; height:auto;"><i style="font-size:14px;">没有发表任何求解</i></div> -->
                 </ul>
             </div>
@@ -140,30 +145,30 @@
 
         <div class="layui-col-md6 fly-home-da">
             <div class="fly-panel">
-                <h3 class="fly-panel-title">贤心 最近的回答</h3>
+                <h3 class="fly-panel-title">${user.nickname} 最近的回答</h3>
                 <ul class="home-jieda">
+<c:if test="${homeloaderinfo!=null}">
+    <c:forEach items="${homeloaderinfo.replyList}" var="reply">
                     <li>
                         <p>
-                            <span>1分钟前</span>
-                            在<a href="" target="_blank">tips能同时渲染多个吗?</a>中回答：
+                            <span>${reply.replyTime}</span>
+                            在<a href="${pageContext.servletContext.contextPath}/detail?id=${reply.aid}" target="_blank">${reply.title}</a>中回答：
                         </p>
                         <div class="home-dacontent">
-                            尝试给layer.photos加上这个属性试试：
-                            <pre>
-full: true
-</pre>
-                            文档没有提及
+        ${reply.replyContent}
                         </div>
                     </li>
-                    <li>
-                        <p>
-                            <span>5分钟前</span>
-                            在<a href="" target="_blank">在Fly社区用的是什么系统啊?</a>中回答：
-                        </p>
-                        <div class="home-dacontent">
-                            Fly社区采用的是NodeJS。分享出来的只是前端模版
-                        </div>
-                    </li>
+    </c:forEach>
+</c:if>
+<%--                    <li>--%>
+<%--                        <p>--%>
+<%--                            <span>5分钟前</span>--%>
+<%--                            在<a href="" target="_blank">在Fly社区用的是什么系统啊?</a>中回答：--%>
+<%--                        </p>--%>
+<%--                        <div class="home-dacontent">--%>
+<%--                            Fly社区采用的是NodeJS。分享出来的只是前端模版--%>
+<%--                        </div>--%>
+<%--                    </li>--%>
 
                     <!-- <div class="fly-none" style="min-height: 50px; padding:30px 0; height:auto;"><span>没有回答任何问题</span></div> -->
                 </ul>

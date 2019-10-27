@@ -139,7 +139,7 @@ public class UserDaoImpl implements UserDao {
         User u = null;
         try {
             conn = DBUtils.getInstance().getConnection();
-            String sql = "select *  from user where email=? and password = ?";
+            String sql = "select id,email,password,nickname,gender,city,avatar,kissnum,enable,DATE_FORMAT(regtime,'%Y/%m/%d') regtime,DATE_FORMAT(signtime,'%Y/%m/%d') signtime  from user where email=? and password = ?";
             ps = conn.prepareStatement(sql);
             ps.setString(1, user.getEmail());
             ps.setString(2, user.getPassword());
@@ -154,8 +154,9 @@ public class UserDaoImpl implements UserDao {
                u.setCity(rs.getString("city"));
                u.setAvatar(rs.getString("avatar"));
                u.setKissnum(rs.getInt("kissnum"));
-               u.setRegtime(rs.getDate("regtime"));
+               u.setRegtime(rs.getString("regtime"));
                u.setEnable(rs.getBoolean("enable"));
+               u.setSignTime(rs.getString("signtime"));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -283,6 +284,41 @@ public class UserDaoImpl implements UserDao {
             ps = conn.prepareStatement(sql);
             ps.setString(1,avatar);
             ps.setInt(2,id);
+
+
+            count = ps.executeUpdate();
+            conn.commit();
+
+
+        } catch (Exception e) {
+            if (conn != null) {
+                try {
+                    conn.rollback();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+
+                } finally {
+                    DBUtils.getInstance().close(ps);
+                    DBUtils.getInstance().close(conn);
+                }
+            }
+        }
+        return count;
+    }
+
+    @Override
+    public int updateUserSigntimeByID(Integer id) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        int count = 0;
+        try {
+            conn = DBUtils.getInstance().getConnection();
+            conn.setAutoCommit(false);
+            String sql = "update user set signtime = now(),kissnum=kissnum+5 where id=? ";
+
+            ps = conn.prepareStatement(sql);
+
+            ps.setInt(1,id);
 
 
             count = ps.executeUpdate();

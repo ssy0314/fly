@@ -10,6 +10,17 @@ public class Reply {
     private User user;
     private Integer counts;
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    private String title
+            ;
+
     public Integer getCounts() {
         return counts;
     }

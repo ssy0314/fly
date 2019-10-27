@@ -13,8 +13,27 @@ public class User {
     private String sign;
     private String avatar;
     private Integer kissnum;
-    private Date regtime;
+    private String regtime;
     private Boolean enable;
+    private String signTime;
+    private Boolean signStatus;
+
+    public Boolean getSignStatus() {
+        return signStatus;
+    }
+
+    public void setSignStatus(Boolean signStatus) {
+        this.signStatus = signStatus;
+    }
+
+    public String getSignTime() {
+        return signTime;
+    }
+
+    public void setSignTime(String signTime) {
+        this.signTime = signTime;
+    }
+
     //用户具备哪些角色
     private List<Role> roles;
 
@@ -101,11 +120,11 @@ public class User {
         this.kissnum = kissnum;
     }
 
-    public Date getRegtime() {
+    public String getRegtime() {
         return regtime;
     }
 
-    public void setRegtime(Date regtime) {
+    public void setRegtime(String regtime) {
         this.regtime = regtime;
     }
 

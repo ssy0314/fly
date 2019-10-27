@@ -27,6 +27,8 @@ public interface UserDao {
     //根据用户id修改头像
     int updateUserAvararByID(Integer id,String avatar);
 
+    //根据用户id修改签到时间
+    int updateUserSigntimeByID(Integer id);
 
 
 }

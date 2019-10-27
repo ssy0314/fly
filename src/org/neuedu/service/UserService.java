@@ -17,6 +17,10 @@ public interface UserService {
     //修改用户头像
     int updateUserAvatar(Integer id, String avatar);
 
+    //修改用户签到时间
+    int updateUserSigntime(Integer id);
+
+
 
 
 

@@ -82,4 +82,15 @@ public class ArticleServiceImpl implements ArticleService {
        return loader;
     }
 
+    @Override
+    public Homeloader loaderHomeInfo(Integer uid) {
+        Homeloader loader = new Homeloader();
+        List<Article> articles = articleDao.serchPublishedArticleByUid(uid);
+        List<Reply> replies = replyDao.serchReplyByUid(uid);
+        loader.setPublishedList(articles);
+        loader.setReplyList(replies);
+        return loader;
+
+    }
+
 }
